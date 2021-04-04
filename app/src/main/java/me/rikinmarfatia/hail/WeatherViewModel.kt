@@ -2,10 +2,11 @@ package me.rikinmarfatia.hail
 
 import com.airbnb.mvrx.MavericksState
 import com.airbnb.mvrx.MavericksViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 data class WeatherFeedState(
-    val feed: List<WeatherState> = listOf(WeatherState())
+    val feed: List<WeatherState> = emptyList()
 ): MavericksState
 
 data class WeatherState(
@@ -15,23 +16,22 @@ data class WeatherState(
 )
 
 class WeatherViewModel(
-    weatherFeedState: WeatherFeedState = WeatherFeedState()
-) : MavericksViewModel<WeatherFeedState>(weatherFeedState) {
-
-    val weatherRepository = WeatherRepository()
+    initialState: WeatherFeedState = WeatherFeedState(),
+    private val weatherRepository: WeatherRepository = WeatherRepository()
+) : MavericksViewModel<WeatherFeedState>(initialState) {
 
     init {
         viewModelScope.launch {
-            val weatherResponse = weatherRepository.weather()
+            val weather = weatherRepository.getWeather()
             setState {
-               toWeatherFeedState(weatherResponse)
+                toWeatherFeedState(weather)
             }
         }
     }
 
-    private fun toWeatherFeedState(weatherWrapper: WeatherWrapper): WeatherFeedState {
+    private fun toWeatherFeedState(weatherFeed: WeatherFeed): WeatherFeedState {
         return WeatherFeedState(
-            feed = weatherWrapper.consolidatedWeather.map(this::toWeatherState)
+            feed = weatherFeed.consolidatedWeather.map(this::toWeatherState)
         )
     }
 

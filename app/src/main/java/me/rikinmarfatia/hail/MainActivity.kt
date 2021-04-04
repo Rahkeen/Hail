@@ -11,6 +11,7 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -23,7 +24,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             HailTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
                     WeatherFeed()
                 }
@@ -63,14 +63,19 @@ fun WeatherRow(state: WeatherState) {
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true)
 @Composable
-fun DefaultPreview() {
+fun WeatherFeedPreview() {
     HailTheme(darkTheme = true) {
-        val viewModel = WeatherViewModel()
-        vi
+        Surface {
+            val viewModel = remember {
+                WeatherViewModel(
+                    weatherRepository = WeatherRepository(live = FakeWeatherRepository())
+                )
+            }
+            val state by viewModel.collectAsState { it.feed }
 
-        val state by viewModel.collectAsState { it.feed }
-        WeatherFeed(state = state)
+            WeatherFeed(state = state)
+        }
     }
 }

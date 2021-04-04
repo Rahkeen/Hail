@@ -6,8 +6,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 @JsonClass(generateAdapter = true)
-data class WeatherWrapper(
+data class WeatherFeed(
     @Json(name = "consolidated_weather") val consolidatedWeather: List<Weather>,
+    @Json(name = "title") val title: String
 )
 
 @JsonClass(generateAdapter = true)
@@ -19,7 +20,7 @@ data class Weather(
 )
 
 interface WeatherRepository {
-    suspend fun weather(): WeatherWrapper
+    suspend fun getWeather(): WeatherFeed
 }
 
 fun WeatherRepository(live: WeatherRepository = RealWeatherRepository()) = live
@@ -32,14 +33,14 @@ class RealWeatherRepository : WeatherRepository {
 
     private val weatherService = retrofit.create(WeatherService::class.java)
 
-    override suspend fun weather(): WeatherWrapper {
+    override suspend fun getWeather(): WeatherFeed {
         return weatherService.getWeather()
     }
 }
 
 class FakeWeatherRepository : WeatherRepository {
-    override suspend fun weather(): WeatherWrapper {
-       return WeatherWrapper(
+    override suspend fun getWeather(): WeatherFeed {
+       return WeatherFeed(
            consolidatedWeather = listOf(
                Weather(
                    minTemp = 15.0,
@@ -59,7 +60,8 @@ class FakeWeatherRepository : WeatherRepository {
                    theTemp = 16.0,
                    applicableDate = "2021-03-30"
                )
-           )
+           ),
+           title = "San Francisco"
        )
     }
 }
