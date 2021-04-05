@@ -38,8 +38,12 @@ class WeatherViewModel(
     private fun toWeatherState(weather: Weather): WeatherState {
         return WeatherState(
             date = weather.applicableDate,
-            low = weather.minTemp.toInt(),
-            high = weather.maxTemp.toInt()
+            low = weather.minTemp.toFarenheight().toInt(),
+            high = weather.maxTemp.toFarenheight().toInt()
         )
+    }
+
+    private fun Double.toFarenheight(): Double {
+        return (this * 9/5.0) + 32
     }
 }

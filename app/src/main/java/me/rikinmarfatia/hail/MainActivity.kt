@@ -16,17 +16,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
-import androidx.core.view.WindowCompat
 import com.airbnb.mvrx.compose.collectAsState
-import com.airbnb.mvrx.compose.mavericksViewModel
 import me.rikinmarfatia.hail.ui.theme.HailTheme
 import me.rikinmarfatia.hail.ui.theme.backgroundBlue
 import me.rikinmarfatia.hail.ui.theme.cellBlue
+import java.text.DateFormat
+import java.util.*
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,7 +48,7 @@ fun WeatherFeed() {
 
 @Composable
 fun WeatherFeed(state: List<WeatherState>) {
-    LazyColumn(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+    LazyColumn(modifier = Modifier.fillMaxSize().padding(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         items(items = state) { state ->
             WeatherRow(state = state)
         }
@@ -69,9 +66,9 @@ fun WeatherRow(state: WeatherState) {
         horizontalArrangement = Arrangement.SpaceEvenly,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(state.date)
-        Text(state.low.toString())
-        Text(state.high.toString())
+        Text(state.date, style = MaterialTheme.typography.body1)
+        Text(state.low.toString(), style = MaterialTheme.typography.body1)
+        Text(state.high.toString(), style = MaterialTheme.typography.body1)
     }
 }
 
