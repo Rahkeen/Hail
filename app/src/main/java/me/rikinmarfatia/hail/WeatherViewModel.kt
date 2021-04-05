@@ -4,6 +4,10 @@ import com.airbnb.mvrx.MavericksState
 import com.airbnb.mvrx.MavericksViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 data class WeatherFeedState(
     val feed: List<WeatherState> = emptyList()
@@ -37,7 +41,7 @@ class WeatherViewModel(
 
     private fun toWeatherState(weather: Weather): WeatherState {
         return WeatherState(
-            date = weather.applicableDate,
+            date = extractCurrentDay(weather.applicableDate),
             low = weather.minTemp.toFarenheight().toInt(),
             high = weather.maxTemp.toFarenheight().toInt()
         )
@@ -45,5 +49,14 @@ class WeatherViewModel(
 
     private fun Double.toFarenheight(): Double {
         return (this * 9/5.0) + 32
+    }
+
+    private fun extractCurrentDay(date: String): String {
+        val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+        val currentDate = formatter.parse(date)
+        val calendar = Calendar.getInstance().apply {
+            time = currentDate!!
+        }
+        return calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.US)!!
     }
 }
