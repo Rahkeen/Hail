@@ -2,11 +2,8 @@ package me.rikinmarfatia.hail
 
 import com.airbnb.mvrx.MavericksState
 import com.airbnb.mvrx.MavericksViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.text.DateFormat
 import java.text.SimpleDateFormat
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 data class WeatherFeedState(
@@ -57,6 +54,6 @@ class WeatherViewModel(
         val calendar = Calendar.getInstance().apply {
             time = currentDate!!
         }
-        return calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.US)!!
+        return calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.US)!!
     }
 }
