@@ -19,6 +19,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -66,6 +67,7 @@ fun WeatherRow(state: WeatherState) {
             .fillMaxWidth()
             .height(80.dp)
             .padding(horizontal = 8.dp)
+            .shadow(4.dp, shape = RoundedCornerShape(size = 8.dp))
             .background(color = cellBlue, shape = RoundedCornerShape(size = 8.dp)),
         horizontalArrangement = Arrangement.SpaceEvenly,
         verticalAlignment = Alignment.CenterVertically
