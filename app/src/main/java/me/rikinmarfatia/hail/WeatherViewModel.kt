@@ -15,6 +15,7 @@ enum class WeatherType {
 }
 
 data class WeatherFeedState(
+    val title: String = "",
     val feed: List<WeatherState> = emptyList()
 ): MavericksState
 
@@ -42,6 +43,7 @@ class WeatherViewModel(
 
     private fun toWeatherFeedState(weatherFeed: WeatherFeed): WeatherFeedState {
         return WeatherFeedState(
+            title = weatherFeed.title,
             feed = weatherFeed.consolidatedWeather.map(this::toWeatherState)
         )
     }

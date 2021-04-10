@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -53,18 +54,21 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun WeatherFeed() {
     val viewModel = remember { WeatherViewModel() }
-    val state by viewModel.collectAsState { it.feed }
+    val state by viewModel.collectAsState()
 
     WeatherFeed(state)
 }
 
 @Composable
-fun WeatherFeed(state: List<WeatherState>) {
-    LazyColumn(modifier = Modifier
-        .fillMaxSize()
-        .padding(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        items(items = state) { state ->
-            WeatherRow(state = state)
+fun WeatherFeed(state: WeatherFeedState) {
+    Column(modifier = Modifier.fillMaxSize()) {
+        LocationHeader(location = state.title)
+        LazyColumn(modifier = Modifier
+            .fillMaxSize()
+            .padding(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            items(items = state.feed) { state ->
+                WeatherRow(state = state)
+            }
         }
     }
 }
@@ -107,22 +111,34 @@ fun WeatherRow(state: WeatherState) {
 fun WeatherIndicator(modifier: Modifier = Modifier, type: WeatherType) {
     val startColor = when(type) {
         WeatherType.Clear -> Color.Yellow
-        WeatherType.LightCloud, WeatherType.HeavyCloud -> Color.White
+        WeatherType.LightCloud, WeatherType.HeavyCloud -> Color.Gray
         WeatherType.Rainy -> Color.Blue
     }
 
     val endColor = when(type) {
         WeatherType.Clear, WeatherType.LightCloud-> Color.Red
         WeatherType.HeavyCloud -> Color.DarkGray
-        WeatherType.Rainy  -> Color.Gray
+        WeatherType.Rainy  -> Color.DarkGray
     }
 
-    Canvas(modifier = modifier then Modifier.size(30.dp)) {
-        drawCircle(
-            brush = Brush.linearGradient(
-                colors = listOf(startColor, endColor)
+    val display = when(type) {
+        WeatherType.Clear -> "Clear"
+        WeatherType.HeavyCloud -> "Cloudy"
+        WeatherType.LightCloud -> "Cloudy"
+        WeatherType.Rainy -> "Rainy"
+    }
+
+    Column(
+        modifier = modifier then Modifier.wrapContentSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Canvas(modifier = Modifier.size(30.dp)) {
+            drawCircle(
+                brush = Brush.linearGradient(
+                    colors = listOf(startColor, endColor)
+                )
             )
-        )
+        }
     }
 }
 
@@ -142,8 +158,17 @@ fun WeatherNumberTile(
 }
 
 @Composable
-fun LocationHeader() {
-
+fun LocationHeader(location: String) {
+   Row(
+       modifier = Modifier
+           .fillMaxWidth()
+           .wrapContentHeight()
+           .padding(all = 8.dp),
+       verticalAlignment = Alignment.CenterVertically,
+       horizontalArrangement = Arrangement.Center
+   ) {
+       Text(text = location, style = MaterialTheme.typography.h1, color = Color.White)
+   } 
 }
 
 @Preview
@@ -156,7 +181,7 @@ fun WeatherFeedPreview() {
                     weatherRepository = WeatherRepository(live = FakeWeatherRepository())
                 )
             }
-            val state by viewModel.collectAsState { it.feed }
+            val state by viewModel.collectAsState()
 
             WeatherFeed(state = state)
         }
@@ -173,4 +198,10 @@ fun WeatherIndicatorPreview() {
 @Composable
 fun WeatherNumberTilePreview() {
     WeatherNumberTile(weatherValue = 30, annotation = "Low")
+}
+
+@Preview
+@Composable
+fun LocationHeaderPreview() {
+    LocationHeader(location = "San Francisco")
 }

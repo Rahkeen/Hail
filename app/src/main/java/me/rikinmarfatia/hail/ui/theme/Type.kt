@@ -14,6 +14,11 @@ val recMonoFontFamily = FontFamily(
 
 // Set of Material typography styles to start with
 val Typography = Typography(
+    h1 = TextStyle(
+        fontFamily = recMonoFontFamily,
+        fontWeight = FontWeight.Normal,
+        fontSize = 32.sp
+    ),
     body1 = TextStyle(
         fontFamily = recMonoFontFamily,
         fontWeight = FontWeight.Normal,
