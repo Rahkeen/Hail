@@ -4,7 +4,15 @@ import com.airbnb.mvrx.MavericksState
 import com.airbnb.mvrx.MavericksViewModel
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Locale
+
+enum class WeatherType {
+    Clear,
+    HeavyCloud,
+    LightCloud,
+    Rainy
+}
 
 data class WeatherFeedState(
     val feed: List<WeatherState> = emptyList()
@@ -14,7 +22,8 @@ data class WeatherState(
     val date: String = "2021-03-28",
     val curr: Int = 70,
     val low: Int = 60,
-    val high: Int = 80
+    val high: Int = 80,
+    val type: WeatherType = WeatherType.Clear
 )
 
 class WeatherViewModel(
@@ -42,8 +51,18 @@ class WeatherViewModel(
             date = extractCurrentDay(weather.applicableDate),
             curr = weather.theTemp.toFarenheight().toInt(),
             low = weather.minTemp.toFarenheight().toInt(),
-            high = weather.maxTemp.toFarenheight().toInt()
+            high = weather.maxTemp.toFarenheight().toInt(),
+            type = weather.weatherStateAbbr.toWeatherType()
         )
+    }
+
+    private fun String.toWeatherType(): WeatherType {
+        return when(this) {
+             "c" -> WeatherType.Clear
+            "hc" -> WeatherType.HeavyCloud
+            "lc" -> WeatherType.LightCloud
+            else -> WeatherType.Rainy
+        }
     }
 
     private fun Double.toFarenheight(): Double {

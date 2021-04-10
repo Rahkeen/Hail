@@ -16,7 +16,8 @@ data class Weather(
     @Json(name = "min_temp") val minTemp: Double,
     @Json(name = "max_temp") val maxTemp: Double,
     @Json(name = "the_temp") val theTemp: Double,
-    @Json(name = "applicable_date") val applicableDate: String
+    @Json(name = "applicable_date") val applicableDate: String,
+    @Json(name = "weather_state_abbr") val weatherStateAbbr: String
 )
 
 interface WeatherRepository {
@@ -46,19 +47,22 @@ class FakeWeatherRepository : WeatherRepository {
                    minTemp = 15.0,
                    maxTemp = 20.0,
                    theTemp = 16.0,
-                   applicableDate = "2021-03-28"
+                   applicableDate = "2021-03-28",
+                   weatherStateAbbr = "c"
                ),
                Weather(
                    minTemp = 15.0,
                    maxTemp = 20.0,
                    theTemp = 16.0,
-                   applicableDate = "2021-03-29"
+                   applicableDate = "2021-03-29",
+                   weatherStateAbbr = "hc"
                ),
                Weather(
                    minTemp = 15.0,
                    maxTemp = 20.0,
                    theTemp = 16.0,
-                   applicableDate = "2021-03-30"
+                   applicableDate = "2021-03-30",
+                   weatherStateAbbr = "r"
                )
            ),
            title = "San Francisco"

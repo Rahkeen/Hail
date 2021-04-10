@@ -5,7 +5,16 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -80,7 +89,7 @@ fun WeatherRow(state: WeatherState) {
             style = MaterialTheme.typography.body1,
             textAlign = TextAlign.Center
         )
-        WeatherIndicator(modifier = Modifier.weight(1F, true))
+        WeatherIndicator(modifier = Modifier.weight(1F, true), state.type)
         WeatherNumberTile(
             modifier = Modifier.weight(1F, true),
             weatherValue = state.low,
@@ -95,11 +104,23 @@ fun WeatherRow(state: WeatherState) {
 }
 
 @Composable
-fun WeatherIndicator(modifier: Modifier = Modifier) {
+fun WeatherIndicator(modifier: Modifier = Modifier, type: WeatherType) {
+    val startColor = when(type) {
+        WeatherType.Clear -> Color.Yellow
+        WeatherType.LightCloud, WeatherType.HeavyCloud -> Color.White
+        WeatherType.Rainy -> Color.Blue
+    }
+
+    val endColor = when(type) {
+        WeatherType.Clear, WeatherType.LightCloud-> Color.Red
+        WeatherType.HeavyCloud -> Color.DarkGray
+        WeatherType.Rainy  -> Color.Gray
+    }
+
     Canvas(modifier = modifier then Modifier.size(30.dp)) {
         drawCircle(
             brush = Brush.linearGradient(
-                colors = listOf(Color.Yellow, Color.Red)
+                colors = listOf(startColor, endColor)
             )
         )
     }
@@ -118,6 +139,11 @@ fun WeatherNumberTile(
         Text(text = "$weatherValue", style = MaterialTheme.typography.body1)
         Text(text = annotation, style = MaterialTheme.typography.caption)
     }
+}
+
+@Composable
+fun LocationHeader() {
+
 }
 
 @Preview
@@ -140,7 +166,7 @@ fun WeatherFeedPreview() {
 @Preview
 @Composable
 fun WeatherIndicatorPreview() {
-    WeatherIndicator()
+    WeatherIndicator(type = WeatherType.Clear)
 }
 
 @Preview
