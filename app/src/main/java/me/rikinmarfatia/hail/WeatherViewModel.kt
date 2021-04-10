@@ -12,6 +12,7 @@ data class WeatherFeedState(
 
 data class WeatherState(
     val date: String = "2021-03-28",
+    val curr: Int = 70,
     val low: Int = 60,
     val high: Int = 80
 )
@@ -39,6 +40,7 @@ class WeatherViewModel(
     private fun toWeatherState(weather: Weather): WeatherState {
         return WeatherState(
             date = extractCurrentDay(weather.applicableDate),
+            curr = weather.theTemp.toFarenheight().toInt(),
             low = weather.minTemp.toFarenheight().toInt(),
             high = weather.maxTemp.toFarenheight().toInt()
         )

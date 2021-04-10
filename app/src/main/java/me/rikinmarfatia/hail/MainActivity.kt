@@ -3,6 +3,7 @@ package me.rikinmarfatia.hail
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -19,7 +20,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.focus.focusModifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -80,7 +85,7 @@ fun WeatherRow(state: WeatherState) {
             style = MaterialTheme.typography.body1,
             textAlign = TextAlign.Center
         )
-        Icon(imageVector = Icons.Outlined.Star, contentDescription = "", modifier = Modifier.weight(1F, true))
+        WeatherIndicator(modifier = Modifier.weight(1F, true))
         Text(
             text = state.low.toString() + "°",
             modifier = Modifier
@@ -100,6 +105,17 @@ fun WeatherRow(state: WeatherState) {
     }
 }
 
+@Composable
+fun WeatherIndicator(modifier: Modifier = Modifier) {
+    Canvas(modifier = modifier then Modifier.size(30.dp)) {
+        drawCircle(
+            brush = Brush.linearGradient(
+                colors = listOf(Color.Yellow, Color.Red)
+            )
+        )
+    }
+}
+
 @Preview
 @Composable
 fun WeatherFeedPreview() {
@@ -115,4 +131,10 @@ fun WeatherFeedPreview() {
             WeatherFeed(state = state)
         }
     }
+}
+
+@Preview
+@Composable
+fun WeatherIndicatorPreview() {
+    WeatherIndicator()
 }
