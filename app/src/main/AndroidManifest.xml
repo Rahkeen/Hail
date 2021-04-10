@@ -7,9 +7,9 @@
 
     <application android:allowBackup="true"
         android:name=".HailApplication"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_hail"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher_hail_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Hail"
         >
