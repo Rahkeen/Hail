@@ -9,20 +9,15 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
@@ -86,21 +81,15 @@ fun WeatherRow(state: WeatherState) {
             textAlign = TextAlign.Center
         )
         WeatherIndicator(modifier = Modifier.weight(1F, true))
-        Text(
-            text = state.low.toString() + "°",
-            modifier = Modifier
-                .weight(1F, true)
-                .wrapContentHeight(),
-            style = MaterialTheme.typography.body1,
-            textAlign = TextAlign.Center
+        WeatherNumberTile(
+            modifier = Modifier.weight(1F, true),
+            weatherValue = state.low,
+            annotation = "Low"
         )
-        Text(
-            text = state.high.toString() + "°",
-            modifier = Modifier
-                .weight(1F, true)
-                .wrapContentHeight(),
-            style = MaterialTheme.typography.body1,
-            textAlign = TextAlign.Center
+        WeatherNumberTile(
+            modifier = Modifier.weight(1F, true),
+            weatherValue = state.high,
+            annotation = "High"
         )
     }
 }
@@ -113,6 +102,21 @@ fun WeatherIndicator(modifier: Modifier = Modifier) {
                 colors = listOf(Color.Yellow, Color.Red)
             )
         )
+    }
+}
+
+@Composable
+fun WeatherNumberTile(
+    modifier: Modifier = Modifier,
+    weatherValue: Int,
+    annotation: String
+) {
+    Column(
+        modifier = modifier then Modifier.wrapContentSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(text = "$weatherValue", style = MaterialTheme.typography.body1)
+        Text(text = annotation, style = MaterialTheme.typography.caption)
     }
 }
 
@@ -137,4 +141,10 @@ fun WeatherFeedPreview() {
 @Composable
 fun WeatherIndicatorPreview() {
     WeatherIndicator()
+}
+
+@Preview
+@Composable
+fun WeatherNumberTilePreview() {
+    WeatherNumberTile(weatherValue = 30, annotation = "Low")
 }
