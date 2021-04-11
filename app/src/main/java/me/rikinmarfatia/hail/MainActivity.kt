@@ -6,7 +6,6 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -43,9 +42,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             HailTheme {
-                Surface(color = backgroundBlue) {
-                    WeatherFeed()
-                }
+                WeatherFeed()
             }
         }
     }
@@ -61,13 +58,17 @@ fun WeatherFeed() {
 
 @Composable
 fun WeatherFeed(state: WeatherFeedState) {
-    Column(modifier = Modifier.fillMaxSize()) {
-        LocationHeader(location = state.title)
-        LazyColumn(modifier = Modifier
-            .fillMaxSize()
-            .padding(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            items(items = state.feed) { state ->
-                WeatherRow(state = state)
+    Surface(color = backgroundBlue) {
+        Column(modifier = Modifier.fillMaxSize()) {
+            LocationHeader(location = state.title)
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(), verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                items(items = state.feed) { state ->
+                    WeatherRow(state = state)
+                }
             }
         }
     }
@@ -109,19 +110,19 @@ fun WeatherRow(state: WeatherState) {
 
 @Composable
 fun WeatherIndicator(modifier: Modifier = Modifier, type: WeatherType) {
-    val startColor = when(type) {
+    val startColor = when (type) {
         WeatherType.Clear -> Color.Yellow
         WeatherType.LightCloud, WeatherType.HeavyCloud -> Color.Gray
         WeatherType.Rainy -> Color.Blue
     }
 
-    val endColor = when(type) {
-        WeatherType.Clear, WeatherType.LightCloud-> Color.Red
+    val endColor = when (type) {
+        WeatherType.Clear, WeatherType.LightCloud -> Color.Red
         WeatherType.HeavyCloud -> Color.DarkGray
-        WeatherType.Rainy  -> Color.DarkGray
+        WeatherType.Rainy -> Color.DarkGray
     }
 
-    val display = when(type) {
+    val display = when (type) {
         WeatherType.Clear -> "Clear"
         WeatherType.HeavyCloud -> "Cloudy"
         WeatherType.LightCloud -> "Cloudy"
@@ -159,32 +160,30 @@ fun WeatherNumberTile(
 
 @Composable
 fun LocationHeader(location: String) {
-   Row(
-       modifier = Modifier
-           .fillMaxWidth()
-           .wrapContentHeight()
-           .padding(all = 8.dp),
-       verticalAlignment = Alignment.CenterVertically,
-       horizontalArrangement = Arrangement.Center
-   ) {
-       Text(text = location, style = MaterialTheme.typography.h1, color = Color.White)
-   } 
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentHeight()
+            .padding(all = 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
+    ) {
+        Text(text = location, style = MaterialTheme.typography.h1, color = Color.White)
+    }
 }
 
 @Preview
 @Composable
 fun WeatherFeedPreview() {
     HailTheme(darkTheme = true) {
-        Surface(color = backgroundBlue) {
-            val viewModel = remember {
-                WeatherViewModel(
-                    weatherRepository = WeatherRepository(live = FakeWeatherRepository())
-                )
-            }
-            val state by viewModel.collectAsState()
-
-            WeatherFeed(state = state)
+        val viewModel = remember {
+            WeatherViewModel(
+                weatherRepository = WeatherRepository(live = FakeWeatherRepository())
+            )
         }
+        val state by viewModel.collectAsState()
+
+        WeatherFeed(state = state)
     }
 }
 

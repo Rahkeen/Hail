@@ -1,5 +1,6 @@
 package me.rikinmarfatia.hail
 
+import android.util.Log
 import com.airbnb.mvrx.MavericksState
 import com.airbnb.mvrx.MavericksViewModel
 import kotlinx.coroutines.launch
@@ -34,9 +35,15 @@ class WeatherViewModel(
 
     init {
         viewModelScope.launch {
-            val weather = weatherRepository.getWeather()
-            setState {
-                toWeatherFeedState(weather)
+            try {
+                val weather = weatherRepository.getWeather()
+                setState {
+                    toWeatherFeedState(weather)
+                }
+            } catch (e: Exception) {
+                setState {
+                    WeatherFeedState(title = "Error")
+                }
             }
         }
     }
