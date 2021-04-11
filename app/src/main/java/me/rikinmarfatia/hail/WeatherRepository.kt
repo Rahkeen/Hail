@@ -63,9 +63,30 @@ class FakeWeatherRepository : WeatherRepository {
                    theTemp = 16.0,
                    applicableDate = "2021-03-30",
                    weatherStateAbbr = "r"
-               )
+               ),
+               Weather(
+                   minTemp = 15.0,
+                   maxTemp = 20.0,
+                   theTemp = 16.0,
+                   applicableDate = "2021-03-28",
+                   weatherStateAbbr = "c"
+               ),
+               Weather(
+                   minTemp = 15.0,
+                   maxTemp = 20.0,
+                   theTemp = 16.0,
+                   applicableDate = "2021-03-29",
+                   weatherStateAbbr = "hc"
+               ),
+               Weather(
+                   minTemp = 15.0,
+                   maxTemp = 20.0,
+                   theTemp = 16.0,
+                   applicableDate = "2021-03-30",
+                   weatherStateAbbr = "r"
+               ),
            ),
-           title = "San Francisco"
+           title = "Rikin's Crib"
        )
     }
 }
