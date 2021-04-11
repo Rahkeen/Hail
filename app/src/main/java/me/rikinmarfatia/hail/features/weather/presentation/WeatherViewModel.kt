@@ -1,32 +1,14 @@
-package me.rikinmarfatia.hail
+package me.rikinmarfatia.hail.features.weather.presentation
 
-import android.util.Log
-import com.airbnb.mvrx.MavericksState
 import com.airbnb.mvrx.MavericksViewModel
 import kotlinx.coroutines.launch
+import me.rikinmarfatia.hail.features.weather.data.Weather
+import me.rikinmarfatia.hail.features.weather.data.WeatherFeed
+import me.rikinmarfatia.hail.features.weather.data.WeatherRepository
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
-
-enum class WeatherType {
-    Clear,
-    HeavyCloud,
-    LightCloud,
-    Rainy
-}
-
-data class WeatherFeedState(
-    val title: String = "",
-    val feed: List<WeatherState> = emptyList()
-): MavericksState
-
-data class WeatherState(
-    val date: String = "2021-03-28",
-    val curr: Int = 70,
-    val low: Int = 60,
-    val high: Int = 80,
-    val type: WeatherType = WeatherType.Clear
-)
+import kotlin.math.roundToInt
 
 class WeatherViewModel(
     initialState: WeatherFeedState = WeatherFeedState(),
@@ -58,9 +40,9 @@ class WeatherViewModel(
     private fun toWeatherState(weather: Weather): WeatherState {
         return WeatherState(
             date = extractCurrentDay(weather.applicableDate),
-            curr = weather.theTemp.toFarenheight().toInt(),
-            low = weather.minTemp.toFarenheight().toInt(),
-            high = weather.maxTemp.toFarenheight().toInt(),
+            curr = weather.theTemp.toFahrenheit(),
+            low = weather.minTemp.toFahrenheit(),
+            high = weather.maxTemp.toFahrenheit(),
             type = weather.weatherStateAbbr.toWeatherType()
         )
     }
@@ -74,8 +56,8 @@ class WeatherViewModel(
         }
     }
 
-    private fun Double.toFarenheight(): Double {
-        return (this * 9/5.0) + 32
+    private fun Double.toFahrenheit(): Int {
+        return ((this * 9/5.0) + 32).roundToInt()
     }
 
     private fun extractCurrentDay(date: String): String {

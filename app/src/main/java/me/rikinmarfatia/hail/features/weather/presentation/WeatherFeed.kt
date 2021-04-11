@@ -1,4 +1,4 @@
-package me.rikinmarfatia.hail.features.feed
+package me.rikinmarfatia.hail.features.weather.presentation
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
@@ -30,12 +30,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.airbnb.mvrx.compose.collectAsState
-import me.rikinmarfatia.hail.FakeWeatherRepository
-import me.rikinmarfatia.hail.WeatherFeedState
-import me.rikinmarfatia.hail.WeatherRepository
-import me.rikinmarfatia.hail.WeatherState
-import me.rikinmarfatia.hail.WeatherType
-import me.rikinmarfatia.hail.WeatherViewModel
+import me.rikinmarfatia.hail.features.weather.data.FakeWeatherRepository
+import me.rikinmarfatia.hail.features.weather.data.WeatherRepository
 import me.rikinmarfatia.hail.ui.theme.HailTheme
 import me.rikinmarfatia.hail.ui.theme.backgroundBlue
 import me.rikinmarfatia.hail.ui.theme.cellBlue
@@ -160,7 +156,11 @@ fun LocationHeader(location: String) {
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
     ) {
-        Text(text = location, style = MaterialTheme.typography.h1, color = Color.White)
+        Text(
+            text = location,
+            style = MaterialTheme.typography.h1,
+            color = Color.White
+        )
     }
 }
 

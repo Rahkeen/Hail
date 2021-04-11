@@ -1,4 +1,4 @@
-package me.rikinmarfatia.hail
+package me.rikinmarfatia.hail.features.weather.data
 
 import retrofit2.http.GET
 import retrofit2.http.Path
