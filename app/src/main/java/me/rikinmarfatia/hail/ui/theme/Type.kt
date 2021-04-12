@@ -17,6 +17,11 @@ val Typography = Typography(
     h1 = TextStyle(
         fontFamily = recMonoFontFamily,
         fontWeight = FontWeight.Normal,
+        fontSize = 56.sp
+    ),
+    h2 = TextStyle(
+        fontFamily = recMonoFontFamily,
+        fontWeight = FontWeight.Normal,
         fontSize = 32.sp
     ),
     body1 = TextStyle(
