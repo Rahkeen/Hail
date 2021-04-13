@@ -143,11 +143,8 @@ fun LocationHeader(location: String) {
 @Composable
 fun WeatherFeedPreview() {
     HailTheme(darkTheme = true) {
-        val viewModel: WeatherViewModel = viewModel(
-            factory = WeatherViewModelFactory(
-                initialState = WeatherFeedState(),
-                weatherRepository = FakeWeatherRepository()
-            )
+        val viewModel = WeatherViewModel(
+            weatherRepository = FakeWeatherRepository()
         )
 
         val state by viewModel.states().collectAsState()
