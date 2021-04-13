@@ -1,6 +1,7 @@
 package me.rikinmarfatia.hail.features.weather.presentation
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -25,6 +26,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.navigate
 import com.airbnb.mvrx.compose.collectAsState
 import me.rikinmarfatia.hail.features.weather.data.FakeWeatherRepository
 import me.rikinmarfatia.hail.features.weather.data.WeatherRepository
@@ -34,43 +37,49 @@ import me.rikinmarfatia.hail.ui.theme.backgroundBlue
 import me.rikinmarfatia.hail.ui.theme.cellBlue
 
 @Composable
-fun WeatherFeed() {
+fun WeatherFeed(navController: NavController) {
     val viewModel = remember { WeatherViewModel() }
     val state by viewModel.collectAsState()
 
-    WeatherFeed(state)
+    WeatherFeed(state, navigate = navController::navigate)
 }
 
 @Composable
-fun WeatherFeed(state: WeatherFeedState) {
-    Column(modifier = Modifier.fillMaxSize().background(color = backgroundBlue)) {
+fun WeatherFeed(state: WeatherFeedState, navigate: (String) -> Unit = {}) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = backgroundBlue)
+    ) {
         LocationHeader(location = state.title)
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(), verticalArrangement = Arrangement.spacedBy(8.dp)
+                .padding(),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(items = state.feed) { state ->
-                WeatherRow(state = state)
+                WeatherRow(state = state, navigate = navigate)
             }
         }
     }
 }
 
 @Composable
-fun WeatherRow(state: WeatherState) {
+fun WeatherRow(state: WeatherState, navigate: (String) -> Unit = {}) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .height(80.dp)
             .padding(horizontal = 16.dp)
             .shadow(4.dp, shape = RoundedCornerShape(size = 8.dp))
-            .background(color = cellBlue, shape = RoundedCornerShape(size = 8.dp)),
+            .background(color = cellBlue, shape = RoundedCornerShape(size = 8.dp))
+            .clickable { navigate("metadata/${state.date}") },
         horizontalArrangement = Arrangement.SpaceEvenly,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = state.date,
+            text = state.currentDay,
             modifier = Modifier
                 .weight(1F, true)
                 .wrapContentHeight(),
@@ -137,16 +146,4 @@ fun WeatherFeedPreview() {
 
         WeatherFeed(state = state)
     }
-}
-
-@Preview
-@Composable
-fun WeatherNumberTilePreview() {
-    WeatherNumberTile(weatherValue = 30, annotation = "Low")
-}
-
-@Preview
-@Composable
-fun LocationHeaderPreview() {
-    LocationHeader(location = "San Francisco")
 }

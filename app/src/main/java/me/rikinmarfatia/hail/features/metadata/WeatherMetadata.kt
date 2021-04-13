@@ -23,7 +23,7 @@ import me.rikinmarfatia.hail.ui.theme.HailTheme
 import me.rikinmarfatia.hail.ui.theme.backgroundBlue
 
 @Composable
-fun WeatherMetadata() {
+fun WeatherMetadata(date: String?) {
     Column(
         modifier = Modifier
             .background(color = backgroundBlue)
@@ -120,6 +120,6 @@ fun WeatherMetadata() {
 @Composable
 fun WeatherMetadataPreview() {
     HailTheme {
-        WeatherMetadata()
+        WeatherMetadata(null)
     }
 }

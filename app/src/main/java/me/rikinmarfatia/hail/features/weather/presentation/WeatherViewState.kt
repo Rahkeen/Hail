@@ -1,6 +1,9 @@
 package me.rikinmarfatia.hail.features.weather.presentation
 
 import com.airbnb.mvrx.MavericksState
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 enum class WeatherType {
     Clear,
@@ -20,4 +23,15 @@ data class WeatherState(
     val low: Int = 60,
     val high: Int = 80,
     val type: WeatherType = WeatherType.Clear
-)
+) {
+    val currentDay: String = extractCurrentDay(date)
+
+    private fun extractCurrentDay(date: String): String {
+        val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+        val currentDate = formatter.parse(date)
+        val calendar = Calendar.getInstance().apply {
+            time = currentDate!!
+        }
+        return calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.US)!!
+    }
+}
