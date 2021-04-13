@@ -1,6 +1,5 @@
 package me.rikinmarfatia.hail.features.weather.presentation
 
-import com.airbnb.mvrx.MavericksState
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -15,7 +14,7 @@ enum class WeatherType {
 data class WeatherFeedState(
     val title: String = "",
     val feed: List<WeatherState> = emptyList()
-) : MavericksState
+)
 
 data class WeatherState(
     val date: String = "2021-03-28",

@@ -1,6 +1,10 @@
 package me.rikinmarfatia.hail.features.weather.presentation
 
-import com.airbnb.mvrx.MavericksViewModel
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import me.rikinmarfatia.hail.features.weather.data.Weather
 import me.rikinmarfatia.hail.features.weather.data.WeatherFeed
@@ -10,19 +14,17 @@ import kotlin.math.roundToInt
 class WeatherViewModel(
     initialState: WeatherFeedState = WeatherFeedState(),
     private val weatherRepository: WeatherRepository = WeatherRepository()
-) : MavericksViewModel<WeatherFeedState>(initialState) {
+) : ViewModel() {
+
+    private val states = MutableStateFlow(initialState)
 
     init {
         viewModelScope.launch {
             try {
                 val weather = weatherRepository.getWeather()
-                setState {
-                    toWeatherFeedState(weather)
-                }
+                states.value = toWeatherFeedState(weather)
             } catch (e: Exception) {
-                setState {
-                    WeatherFeedState(title = "Error")
-                }
+                states.value = WeatherFeedState(title = "Error")
             }
         }
     }
@@ -56,4 +58,19 @@ class WeatherViewModel(
     private fun Double.toFahrenheit(): Int {
         return ((this * 9/5.0) + 32).roundToInt()
     }
+
+    fun states(): StateFlow<WeatherFeedState> {
+        return states
+    }
+}
+
+@Suppress("UNCHECKED_CAST")
+class WeatherViewModelFactory(
+    private val initialState: WeatherFeedState,
+    private val weatherRepository: WeatherRepository = WeatherRepository()
+): ViewModelProvider.Factory {
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        return WeatherViewModel(initialState, weatherRepository) as T
+    }
+
 }

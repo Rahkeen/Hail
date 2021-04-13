@@ -17,8 +17,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -26,9 +26,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.navigate
-import com.airbnb.mvrx.compose.collectAsState
 import me.rikinmarfatia.hail.features.weather.data.FakeWeatherRepository
 import me.rikinmarfatia.hail.features.weather.data.WeatherRepository
 import me.rikinmarfatia.hail.ui.WeatherIndicator
@@ -38,8 +38,14 @@ import me.rikinmarfatia.hail.ui.theme.cellBlue
 
 @Composable
 fun WeatherFeed(navController: NavController) {
-    val viewModel = remember { WeatherViewModel() }
-    val state by viewModel.collectAsState()
+    val weatherViewModel: WeatherViewModel = viewModel(
+        factory = WeatherViewModelFactory(
+            initialState = WeatherFeedState(),
+            weatherRepository = WeatherRepository()
+        )
+    )
+
+    val state by weatherViewModel.states().collectAsState()
 
     WeatherFeed(state, navigate = navController::navigate)
 }
@@ -137,12 +143,14 @@ fun LocationHeader(location: String) {
 @Composable
 fun WeatherFeedPreview() {
     HailTheme(darkTheme = true) {
-        val viewModel = remember {
-            WeatherViewModel(
-                weatherRepository = WeatherRepository(live = FakeWeatherRepository())
+        val viewModel: WeatherViewModel = viewModel(
+            factory = WeatherViewModelFactory(
+                initialState = WeatherFeedState(),
+                weatherRepository = FakeWeatherRepository()
             )
-        }
-        val state by viewModel.collectAsState()
+        )
+
+        val state by viewModel.states().collectAsState()
 
         WeatherFeed(state = state)
     }
