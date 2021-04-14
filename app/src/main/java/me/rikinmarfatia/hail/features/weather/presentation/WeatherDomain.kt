@@ -17,6 +17,7 @@ data class WeatherFeedState(
 )
 
 data class WeatherState(
+    val title: String = "",
     val date: String = "2021-03-28",
     val curr: Int = 70,
     val low: Int = 60,

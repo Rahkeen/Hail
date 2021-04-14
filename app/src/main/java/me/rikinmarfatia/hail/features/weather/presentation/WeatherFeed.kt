@@ -26,32 +26,31 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.navigate
 import me.rikinmarfatia.hail.features.weather.data.FakeWeatherRepository
-import me.rikinmarfatia.hail.features.weather.data.WeatherRepository
 import me.rikinmarfatia.hail.ui.WeatherIndicator
 import me.rikinmarfatia.hail.ui.theme.HailTheme
 import me.rikinmarfatia.hail.ui.theme.backgroundBlue
 import me.rikinmarfatia.hail.ui.theme.cellBlue
 
 @Composable
-fun WeatherFeed(navController: NavController) {
-    val weatherViewModel: WeatherViewModel = viewModel(
-        factory = WeatherViewModelFactory(
-            initialState = WeatherFeedState(),
-            weatherRepository = WeatherRepository()
-        )
+fun WeatherFeed(weatherViewModel: WeatherViewModel, navController: NavController) {
+    val state by weatherViewModel.feedStates().collectAsState()
+
+    WeatherFeed(
+        state = state,
+        action = weatherViewModel::feedItemSelected,
+        navigate = navController::navigate
     )
-
-    val state by weatherViewModel.states().collectAsState()
-
-    WeatherFeed(state, navigate = navController::navigate)
 }
 
 @Composable
-fun WeatherFeed(state: WeatherFeedState, navigate: (String) -> Unit = {}) {
+fun WeatherFeed(
+    state: WeatherFeedState,
+    action: (WeatherState) -> Unit = {},
+    navigate: (String) -> Unit = {}
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -65,14 +64,22 @@ fun WeatherFeed(state: WeatherFeedState, navigate: (String) -> Unit = {}) {
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(items = state.feed) { state ->
-                WeatherRow(state = state, navigate = navigate)
+                WeatherRow(
+                    state = state,
+                    action = action,
+                    navigate = navigate
+                )
             }
         }
     }
 }
 
 @Composable
-fun WeatherRow(state: WeatherState, navigate: (String) -> Unit = {}) {
+fun WeatherRow(
+    state: WeatherState,
+    action: (WeatherState) -> Unit,
+    navigate: (String) -> Unit = {}
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -80,7 +87,10 @@ fun WeatherRow(state: WeatherState, navigate: (String) -> Unit = {}) {
             .padding(horizontal = 16.dp)
             .shadow(4.dp, shape = RoundedCornerShape(size = 8.dp))
             .background(color = cellBlue, shape = RoundedCornerShape(size = 8.dp))
-            .clickable { navigate("metadata/${state.date}") },
+            .clickable {
+                action(state)
+                navigate("metadata")
+            },
         horizontalArrangement = Arrangement.SpaceEvenly,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -147,7 +157,7 @@ fun WeatherFeedPreview() {
             weatherRepository = FakeWeatherRepository()
         )
 
-        val state by viewModel.states().collectAsState()
+        val state by viewModel.feedStates().collectAsState()
 
         WeatherFeed(state = state)
     }
