@@ -2,7 +2,6 @@ package me.rikinmarfatia.hail.features.weather.presentation
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.core.content.contentValuesOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -28,7 +27,7 @@ class WeatherViewModel(
                 val weather = weatherRepository.getWeather()
                 feedStates.value = weather.toWeatherFeedState()
             } catch (e: Exception) {
-                feedStates.value = WeatherFeedState(title = "Error")
+                feedStates.value = WeatherFeedState(title = "No Internet 😢")
             }
         }
     }

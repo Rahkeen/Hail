@@ -60,7 +60,7 @@ class FakeWeatherRepository : WeatherRepository {
                    minTemp = 15.0,
                    maxTemp = 20.0,
                    theTemp = 16.0,
-                   applicableDate = "2021-03-28",
+                   applicableDate = "2021-03-31",
                    weatherStateAbbr = "c",
                    windSpeed = 9.6,
                    humidity = 10,
@@ -70,7 +70,7 @@ class FakeWeatherRepository : WeatherRepository {
                    minTemp = 15.0,
                    maxTemp = 20.0,
                    theTemp = 16.0,
-                   applicableDate = "2021-03-29",
+                   applicableDate = "2021-04-01",
                    weatherStateAbbr = "hc",
                    windSpeed = 9.6,
                    humidity = 10,
@@ -80,14 +80,14 @@ class FakeWeatherRepository : WeatherRepository {
                    minTemp = 15.0,
                    maxTemp = 20.0,
                    theTemp = 16.0,
-                   applicableDate = "2021-03-30",
+                   applicableDate = "2021-04-02",
                    weatherStateAbbr = "r",
                    windSpeed = 9.6,
                    humidity = 10,
                    predictability = 90,
                ),
            ),
-           title = "Rikin's Crib"
+           title = "Off The Grid 🕵🏾‍♂️"
        )
     }
 }
