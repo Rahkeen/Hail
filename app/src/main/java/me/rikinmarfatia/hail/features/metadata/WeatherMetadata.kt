@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,10 +29,9 @@ import me.rikinmarfatia.hail.ui.theme.backgroundBlue
 
 @Composable
 fun WeatherMetadata(weatherViewModel: WeatherViewModel) {
+    val metadataState by weatherViewModel.metadataState()
 
-    val state by weatherViewModel.metadataState()
-
-    Log.i("WeatherMetadata", state.currentDay)
+    Log.i("WeatherMetadata", metadataState.currentDay)
 
     Column(
         modifier = Modifier
@@ -42,29 +42,28 @@ fun WeatherMetadata(weatherViewModel: WeatherViewModel) {
     ) {
         // Header
         Text(
-            text = "San Francisco, CA",
+            text = metadataState.currentDay,
             style = MaterialTheme.typography.body1,
             color = Color.White
         )
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        WeatherIndicator(type = WeatherType.Clear, size = 200.dp)
+        WeatherIndicator(type = metadataState.type, size = 200.dp)
         Spacer(modifier = Modifier.height(16.dp))
         Text(
-            text = "Clear",
+            text = metadataState.type.name,
             style = MaterialTheme.typography.body1,
             color = Color.White
         )
         Spacer(modifier = Modifier.height(16.dp))
         Text(
-            text = "56°F",
+            text = "${metadataState.curr}°F",
             style = MaterialTheme.typography.h1,
             color = Color.White
         )
 
         Spacer(modifier = Modifier.height(16.dp))
-
 
         Row(
             modifier = Modifier
@@ -79,7 +78,7 @@ fun WeatherMetadata(weatherViewModel: WeatherViewModel) {
                 color = Color.White,
             )
             Text(
-                text = "9.3mph",
+                text = "${metadataState.wind}mph",
                 style = MaterialTheme.typography.body1,
                 color = Color.White,
             )
@@ -98,7 +97,7 @@ fun WeatherMetadata(weatherViewModel: WeatherViewModel) {
                 color = Color.White,
             )
             Text(
-                text = "10%",
+                text = "${metadataState.humidity}%",
                 style = MaterialTheme.typography.body1,
                 color = Color.White,
             )
@@ -117,7 +116,7 @@ fun WeatherMetadata(weatherViewModel: WeatherViewModel) {
                 color = Color.White,
             )
             Text(
-                text = "80%",
+                text = "${metadataState.confidence}%",
                 style = MaterialTheme.typography.body1,
                 color = Color.White,
             )

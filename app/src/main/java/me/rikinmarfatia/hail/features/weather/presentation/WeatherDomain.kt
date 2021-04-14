@@ -22,7 +22,10 @@ data class WeatherState(
     val curr: Int = 70,
     val low: Int = 60,
     val high: Int = 80,
-    val type: WeatherType = WeatherType.Clear
+    val type: WeatherType = WeatherType.Clear,
+    val wind: Int = 10,
+    val humidity: Int = 10,
+    val confidence: Int = 80,
 ) {
     val currentDay: String = extractCurrentDay(date)
 

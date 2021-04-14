@@ -2,6 +2,7 @@ package me.rikinmarfatia.hail.features.weather.presentation
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import androidx.core.content.contentValuesOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -45,7 +46,10 @@ class WeatherViewModel(
             curr = theTemp.toFahrenheit(),
             low = minTemp.toFahrenheit(),
             high = maxTemp.toFahrenheit(),
-            type = weatherStateAbbr.toWeatherType()
+            type = weatherStateAbbr.toWeatherType(),
+            wind = windSpeed.roundToInt(),
+            humidity = humidity,
+            confidence = predictability
         )
     }
 
