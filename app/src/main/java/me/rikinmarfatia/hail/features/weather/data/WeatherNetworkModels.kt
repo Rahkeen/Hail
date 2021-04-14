@@ -15,5 +15,8 @@ data class Weather(
     @Json(name = "max_temp") val maxTemp: Double,
     @Json(name = "the_temp") val theTemp: Double,
     @Json(name = "applicable_date") val applicableDate: String,
-    @Json(name = "weather_state_abbr") val weatherStateAbbr: String
+    @Json(name = "weather_state_abbr") val weatherStateAbbr: String,
+    @Json(name = "wind_speed") val windSpeed: Double,
+    @Json(name = "humidity") val humidity: Int,
+    @Json(name = "predictability") val predictability: Int,
 )

@@ -31,42 +31,60 @@ class FakeWeatherRepository : WeatherRepository {
                    maxTemp = 20.0,
                    theTemp = 16.0,
                    applicableDate = "2021-03-28",
-                   weatherStateAbbr = "c"
+                   weatherStateAbbr = "c",
+                   windSpeed = 9.6,
+                   humidity = 10,
+                   predictability = 90,
                ),
                Weather(
                    minTemp = 15.0,
                    maxTemp = 20.0,
                    theTemp = 16.0,
                    applicableDate = "2021-03-29",
-                   weatherStateAbbr = "hc"
+                   weatherStateAbbr = "hc",
+                   windSpeed = 9.6,
+                   humidity = 10,
+                   predictability = 90,
                ),
                Weather(
                    minTemp = 15.0,
                    maxTemp = 20.0,
                    theTemp = 16.0,
                    applicableDate = "2021-03-30",
-                   weatherStateAbbr = "r"
+                   weatherStateAbbr = "r",
+                   windSpeed = 9.6,
+                   humidity = 10,
+                   predictability = 90,
                ),
                Weather(
                    minTemp = 15.0,
                    maxTemp = 20.0,
                    theTemp = 16.0,
                    applicableDate = "2021-03-28",
-                   weatherStateAbbr = "c"
+                   weatherStateAbbr = "c",
+                   windSpeed = 9.6,
+                   humidity = 10,
+                   predictability = 90,
                ),
                Weather(
                    minTemp = 15.0,
                    maxTemp = 20.0,
                    theTemp = 16.0,
                    applicableDate = "2021-03-29",
-                   weatherStateAbbr = "hc"
+                   weatherStateAbbr = "hc",
+                   windSpeed = 9.6,
+                   humidity = 10,
+                   predictability = 90,
                ),
                Weather(
                    minTemp = 15.0,
                    maxTemp = 20.0,
                    theTemp = 16.0,
                    applicableDate = "2021-03-30",
-                   weatherStateAbbr = "r"
+                   weatherStateAbbr = "r",
+                   windSpeed = 9.6,
+                   humidity = 10,
+                   predictability = 90,
                ),
            ),
            title = "Rikin's Crib"
