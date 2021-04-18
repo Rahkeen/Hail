@@ -1,4 +1,4 @@
-package com.example.weatherrepo.live
+package com.example.weatherrepolive
 
 import com.example.weatherrepo.WeatherFeed
 import com.example.weatherrepo.WeatherRepository

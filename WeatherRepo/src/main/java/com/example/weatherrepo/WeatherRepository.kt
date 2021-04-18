@@ -1,7 +1,5 @@
 package com.example.weatherrepo
 
-import com.example.weatherrepo.live.RealWeatherRepository
-
 interface WeatherRepository {
     suspend fun getWeather(): WeatherFeed
 }

@@ -12,6 +12,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/WeatherRepo" />
+            <option value="$PROJECT_DIR$/WeatherRepoLive" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/weather" />
             <option value="$PROJECT_DIR$/weather/impl" />

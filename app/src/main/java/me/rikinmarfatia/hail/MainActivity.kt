@@ -11,7 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.weatherrepo.FakeWeatherRepository
-import com.example.weatherrepo.live.RealWeatherRepository
+import com.example.weatherrepolive.RealWeatherRepository
 import me.rikinmarfatia.hail.features.metadata.WeatherMetadata
 import me.rikinmarfatia.hail.features.weather.presentation.WeatherFeed
 import me.rikinmarfatia.hail.features.weather.presentation.WeatherFeedState
