@@ -5,17 +5,18 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.example.weatherrepo.Weather
+import com.example.weatherrepo.WeatherFeed
+import com.example.weatherrepo.WeatherRepository
+import com.example.weatherrepo.live.RealWeatherRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import me.rikinmarfatia.hail.features.weather.data.Weather
-import me.rikinmarfatia.hail.features.weather.data.WeatherFeed
-import me.rikinmarfatia.hail.features.weather.data.WeatherRepository
 import kotlin.math.roundToInt
 
 class WeatherViewModel(
     initialState: WeatherFeedState = WeatherFeedState(),
-    private val weatherRepository: WeatherRepository = WeatherRepository()
+    private val weatherRepository: WeatherRepository = RealWeatherRepository()
 ) : ViewModel() {
 
     private val feedStates = MutableStateFlow(initialState)
@@ -81,7 +82,7 @@ class WeatherViewModel(
 @Suppress("UNCHECKED_CAST")
 class WeatherViewModelFactory(
     private val initialState: WeatherFeedState,
-    private val weatherRepository: WeatherRepository = WeatherRepository()
+    private val weatherRepository: WeatherRepository = RealWeatherRepository()
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return WeatherViewModel(initialState, weatherRepository) as T

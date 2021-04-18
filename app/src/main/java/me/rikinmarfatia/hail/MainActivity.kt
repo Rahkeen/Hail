@@ -5,15 +5,14 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.weatherrepo.FakeWeatherRepository
+import com.example.weatherrepo.live.RealWeatherRepository
 import me.rikinmarfatia.hail.features.metadata.WeatherMetadata
-import me.rikinmarfatia.hail.features.weather.data.FakeWeatherRepository
-import me.rikinmarfatia.hail.features.weather.data.WeatherRepository
 import me.rikinmarfatia.hail.features.weather.presentation.WeatherFeed
 import me.rikinmarfatia.hail.features.weather.presentation.WeatherFeedState
 import me.rikinmarfatia.hail.features.weather.presentation.WeatherViewModel
@@ -30,7 +29,7 @@ class MainActivity : ComponentActivity() {
                 val weatherViewModel: WeatherViewModel = viewModel(
                     factory = WeatherViewModelFactory(
                         initialState = WeatherFeedState(),
-                        weatherRepository = WeatherRepository()
+                        weatherRepository = RealWeatherRepository()
                     )
                 )
                 NavHost(navController = navController, startDestination = "feed") {

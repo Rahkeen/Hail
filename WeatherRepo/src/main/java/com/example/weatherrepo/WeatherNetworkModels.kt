@@ -1,4 +1,4 @@
-package me.rikinmarfatia.hail.features.weather.data
+package com.example.weatherrepo
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
