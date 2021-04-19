@@ -11,6 +11,12 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/Design" />
+            <option value="$PROJECT_DIR$/Playground" />
+            <option value="$PROJECT_DIR$/WeatherFeedFeature" />
+            <option value="$PROJECT_DIR$/WeatherFeedPreview" />
+            <option value="$PROJECT_DIR$/WeatherMetadataFeature" />
+            <option value="$PROJECT_DIR$/WeatherMetadataPreview" />
             <option value="$PROJECT_DIR$/WeatherRepo" />
             <option value="$PROJECT_DIR$/WeatherRepoLive" />
             <option value="$PROJECT_DIR$/app" />

@@ -10,13 +10,13 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.weatherfeedfeature.WeatherFeed
+import com.example.weathermetadatafeature.WeatherMetadata
 import com.example.weatherrepo.FakeWeatherRepository
 import com.example.weatherrepolive.RealWeatherRepository
-import me.rikinmarfatia.hail.features.metadata.WeatherMetadata
-import me.rikinmarfatia.hail.features.weather.presentation.WeatherFeed
 import me.rikinmarfatia.hail.features.weather.presentation.WeatherFeedState
-import me.rikinmarfatia.hail.features.weather.presentation.WeatherViewModel
-import me.rikinmarfatia.hail.features.weather.presentation.WeatherViewModelFactory
+import com.example.weatherfeedfeature.WeatherViewModel
+import com.example.weatherfeedfeature.WeatherViewModelFactory
 import me.rikinmarfatia.hail.ui.theme.HailTheme
 
 @ExperimentalAnimationApi
@@ -43,19 +43,4 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Preview
-@Composable
-fun HailPlayground() {
-    HailTheme {
-        val navController = rememberNavController()
-        val weatherViewModel = WeatherViewModel(
-            weatherRepository = FakeWeatherRepository()
-        )
-        NavHost(navController = navController, startDestination = "feed") {
-            composable("feed") { WeatherFeed(weatherViewModel, navController) }
-            composable("metadata") {
-                WeatherMetadata(weatherViewModel)
-            }
-        }
-    }
-}
+

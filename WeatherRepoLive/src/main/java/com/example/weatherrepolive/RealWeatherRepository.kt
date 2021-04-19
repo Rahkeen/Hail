@@ -2,7 +2,6 @@ package com.example.weatherrepolive
 
 import com.example.weatherrepo.WeatherFeed
 import com.example.weatherrepo.WeatherRepository
-import com.example.weatherrepo.WeatherService
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
