@@ -1,4 +1,4 @@
-package me.rikinmarfatia.hail.features.weather.presentation
+package com.example.weatherfeedfeature
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -29,7 +29,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.navigate
 import com.example.weatherrepo.FakeWeatherRepository
-import me.rikinmarfatia.hail.ui.WeatherIndicator
 import me.rikinmarfatia.hail.ui.theme.HailTheme
 import me.rikinmarfatia.hail.ui.theme.backgroundBlue
 import me.rikinmarfatia.hail.ui.theme.cellBlue
@@ -116,38 +115,6 @@ fun WeatherRow(
     }
 }
 
-@Composable
-fun WeatherNumberTile(
-    modifier: Modifier = Modifier,
-    weatherValue: Int,
-    annotation: String
-) {
-    Column(
-        modifier = modifier then Modifier.wrapContentSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(text = "$weatherValue", style = MaterialTheme.typography.body1)
-        Text(text = annotation, style = MaterialTheme.typography.caption)
-    }
-}
-
-@Composable
-fun LocationHeader(location: String) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .wrapContentHeight()
-            .padding(all = 8.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
-    ) {
-        Text(
-            text = location,
-            style = MaterialTheme.typography.h2,
-            color = Color.White
-        )
-    }
-}
 
 @Preview
 @Composable

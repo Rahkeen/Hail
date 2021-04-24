@@ -1,4 +1,4 @@
-package me.rikinmarfatia.hail.features.weather.presentation
+package com.example.weatherfeedfeature
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf

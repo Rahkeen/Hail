@@ -1,0 +1,24 @@
+package com.example.weatherfeedpreview
+
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.weatherfeedfeature.WeatherFeed
+import com.example.weatherfeedfeature.WeatherViewModel
+import com.example.weatherrepo.FakeWeatherRepository
+import me.rikinmarfatia.hail.ui.theme.HailTheme
+
+@Preview
+@Composable
+fun WeatherFeedPreview() {
+    HailTheme(darkTheme = true) {
+        val viewModel = WeatherViewModel(
+            weatherRepository = FakeWeatherRepository()
+        )
+
+        val state by viewModel.feedStates().collectAsState()
+
+        WeatherFeed(state = state)
+    }
+}

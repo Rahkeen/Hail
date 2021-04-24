@@ -1,4 +1,4 @@
-package me.rikinmarfatia.hail.features.weather.presentation
+package com.example.weatherfeedfeature
 
 import java.text.SimpleDateFormat
 import java.util.Calendar
