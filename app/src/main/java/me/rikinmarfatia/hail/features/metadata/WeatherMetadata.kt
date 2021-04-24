@@ -19,9 +19,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.weatherfeedfeature.WeatherIndicator
+import com.example.weatherfeedfeature.WeatherViewModel
 import com.example.weatherrepo.FakeWeatherRepository
-import me.rikinmarfatia.hail.features.weather.presentation.WeatherViewModel
-import me.rikinmarfatia.hail.ui.WeatherIndicator
 import me.rikinmarfatia.hail.ui.theme.HailTheme
 import me.rikinmarfatia.hail.ui.theme.backgroundBlue
 

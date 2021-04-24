@@ -10,13 +10,13 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.weatherfeedfeature.WeatherFeed
+import com.example.weatherfeedfeature.WeatherFeedState
+import com.example.weatherfeedfeature.WeatherViewModel
+import com.example.weatherfeedfeature.WeatherViewModelFactory
 import com.example.weatherrepo.FakeWeatherRepository
 import com.example.weatherrepolive.RealWeatherRepository
 import me.rikinmarfatia.hail.features.metadata.WeatherMetadata
-import me.rikinmarfatia.hail.features.weather.presentation.WeatherFeed
-import me.rikinmarfatia.hail.features.weather.presentation.WeatherFeedState
-import me.rikinmarfatia.hail.features.weather.presentation.WeatherViewModel
-import me.rikinmarfatia.hail.features.weather.presentation.WeatherViewModelFactory
 import me.rikinmarfatia.hail.ui.theme.HailTheme
 
 @ExperimentalAnimationApi
