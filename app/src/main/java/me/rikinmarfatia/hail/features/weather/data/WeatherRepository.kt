@@ -7,8 +7,6 @@ interface WeatherRepository {
     suspend fun getWeather(): WeatherFeed
 }
 
-fun WeatherRepository(live: WeatherRepository = RealWeatherRepository()) = live
-
 class RealWeatherRepository : WeatherRepository {
     private val retrofit = Retrofit.Builder()
         .baseUrl("https://www.metaweather.com/api/")
