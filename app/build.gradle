@@ -42,10 +42,8 @@ android {
 
 dependencies {
 
-    implementation project(":WeatherRepo")
     implementation project(":WeatherRepoLive")
     implementation project(":Design")
-
     implementation project(":WeatherFeedFeature")
     implementation project(":WeatherMetadataFeature")
 
