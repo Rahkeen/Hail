@@ -13,15 +13,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import me.rikinmarfatia.hail.features.weather.data.FakeWeatherRepository
-import me.rikinmarfatia.hail.features.weather.presentation.WeatherType
+import com.example.weatherrepo.FakeWeatherRepository
 import me.rikinmarfatia.hail.features.weather.presentation.WeatherViewModel
 import me.rikinmarfatia.hail.ui.WeatherIndicator
 import me.rikinmarfatia.hail.ui.theme.HailTheme

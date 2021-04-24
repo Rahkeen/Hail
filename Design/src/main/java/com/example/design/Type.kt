@@ -1,4 +1,4 @@
-package me.rikinmarfatia.hail.ui.theme
+package com.example.design
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
@@ -6,7 +6,6 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import me.rikinmarfatia.hail.R
 
 val recMonoFontFamily = FontFamily(
     Font(R.font.recmono_linear_regular, FontWeight.Normal)

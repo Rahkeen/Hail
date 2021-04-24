@@ -1,5 +1,6 @@
-package me.rikinmarfatia.hail.features.weather.data
+package com.example.weatherrepolive
 
+import com.example.weatherrepo.WeatherFeed
 import retrofit2.http.GET
 import retrofit2.http.Path
 
