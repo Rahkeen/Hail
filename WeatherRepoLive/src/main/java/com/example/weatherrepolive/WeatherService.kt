@@ -10,5 +10,5 @@ const val LONDON_WOEID = 44418
 
 interface WeatherService {
     @GET("location/{woeid}")
-    suspend fun getWeather(@Path("woeid") woeid: Int = SAN_JOSE_WOEID): WeatherFeed
+    suspend fun getWeather(@Path("woeid") woeid: Int = SAN_FRANCISCO_WOEID): WeatherFeed
 }
