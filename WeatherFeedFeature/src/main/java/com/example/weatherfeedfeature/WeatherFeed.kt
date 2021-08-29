@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -22,24 +21,21 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.compose.navigate
 import me.rikinmarfatia.hail.features.weather.presentation.WeatherFeedState
 import me.rikinmarfatia.hail.features.weather.presentation.WeatherState
 import me.rikinmarfatia.hail.ui.theme.backgroundBlue
 import me.rikinmarfatia.hail.ui.theme.cellBlue
 
 @Composable
-fun WeatherFeed(weatherViewModel: WeatherViewModel, navController: NavController) {
+fun WeatherFeed(weatherViewModel: WeatherViewModel, navigate: (String) -> Unit) {
     val state by weatherViewModel.feedStates().collectAsState()
 
     WeatherFeed(
         state = state,
         action = weatherViewModel::feedItemSelected,
-        navigate = navController::navigate
+        navigate = navigate
     )
 }
 
