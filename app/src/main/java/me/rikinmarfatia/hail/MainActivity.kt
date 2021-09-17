@@ -30,7 +30,9 @@ class MainActivity : ComponentActivity() {
                     )
                 )
                 NavHost(navController = navController, startDestination = "feed") {
-                    composable("feed") { WeatherFeed(weatherViewModel, navController::navigate) }
+                    composable("feed") {
+                        WeatherFeed(weatherViewModel, navController::navigate)
+                    }
                     composable("metadata") {
                         WeatherMetadata(weatherViewModel)
                     }
